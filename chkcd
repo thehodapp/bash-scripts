@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Filename: chkcd
+# Outputs the MD5 sum of a CD in regards to an ISO filesize (assumed to have been burned to the CD)
+# This is used to check the integrity of the data burned to a CD
+
+USAGE="Usage: `basename $0` [-d DEVICE] FILENAME\n"
+USAGE=$USAGE"Outputs the MD5 sum of a CD in regards to an ISO filesize (assumed to have been burned to the CD)\n"
+USAGE=$USAGE"Use the -d flag to use specified DEVICE instead of /dev/sr0"
+
+dev="/dev/sr0"
+filename=""
+
+# Check arguments
+case "$1" in
+    "")
+        echo -e "$USAGE"
+        exit 1
+        ;;
+        
+    "-d")
+        if [ "$#" -ne "3" ] ; then
+            echo -e "$USAGE" ; exit 1
+        fi
+        dev="$2"
+        filename="$3"
+        ;;
+
+    *)
+        if [ "$#" -ne "1" ] ; then
+            echo -e "$USAGE" ; exit 1
+        fi
+        filename="$1"
+        ;;
+esac
+
+dd if="$dev" bs=2048 count=$(( $(stat -c %s "$filename") / 2048 )) | md5sum
+
+exit 0

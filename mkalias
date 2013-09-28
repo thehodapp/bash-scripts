@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# path to .bashrc, .zshrc, etc.
+export RC='/home/dennis/.zshrc'
+
+if [ `expr index "${1:-0}i" =` == 0 ]; then
+	echo "Usage: mkalias ALIAS=EXPRESSION
+Makes alias permanent by writing to .bash_aliases contained in home directory."
+else
+	# Export alias
+	echo 'alias '$1 >> $RC
+fi

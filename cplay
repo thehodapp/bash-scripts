@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Author: Dennis Hodapp
+# Filename: cplay
+# Requires: cmus
+#
+# Tests if cmus is running and starts it if it isn't.
+# Else it toggles play/pause.
+# This command will break if you rename it to
+# something containing "cmus".
+#
+# Note: I use this with a shortcut key to start and play cmus
+
+TERMINAL=${TERMINAL:-"gnome-terminal"}
+SHELL=${SHELL:-"/usr/bin/bash"}
+
+if ! ps aux | grep -w "cmus$" | grep -v grep > /dev/null ; then
+  $TERMINAL -x $SHELL -c cmus & > /dev/null
+else
+  cmus-remote -u
+fi
+
+# If argument passed is -s then status of cmus will be echoed
+#if [ "$1" = "-s" ]
+#  then
+#    info="$(cmus-remote -Q)"
+#    status="$(echo "$info" | sed -n 's/^status //p')"
+#    echo "$status"
+#  fi

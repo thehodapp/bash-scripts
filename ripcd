@@ -1,0 +1,34 @@
+#! /bin/sh
+# Rips a cd and then converts to wave and then encodes in:
+# -f flac at level 8
+# -o 320kb/s ogg (level 9)
+# -m VBR mp3 at highest quality (level 0)
+
+USAGE="ripcd - rips a cd and encodes it in either FLAC, OGG, or MP3 at high qualities.\n"
+USAGE=$USAGE"Usage: `basename $0` [-f|-o|-m]"
+
+if [ "$1" = "-f" ] || [ "$1" = "-o" ] || [ "$1" = "-m" ] ; then
+    cd-paranoia -B
+else
+    echo -e "$USAGE"
+    exit 1
+fi
+
+for file in *.wav
+do
+    case "$1" in
+        -f) flac -8 "$file"
+            ;;
+        -o) oggenc -q 9 "$file"
+            ;;
+        -m) lame -h -V 0 "$file"
+            ;;
+        *)  echo -e "$USAGE"
+            echo -e "\nSeriously weird error. Shouldn't be here"
+            exit 1
+            ;;
+    esac
+    rm "$file"
+done
+
+exec picard &
