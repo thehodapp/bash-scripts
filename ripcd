@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 # Rips a cd and then converts to wave and then encodes in:
 # -f flac at level 8
 # -o 320kb/s ogg (level 9)
