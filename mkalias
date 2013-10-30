@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # path to .bashrc, .zshrc, etc.
-export RC='/home/dennis/.zshrc'
+export RC='/home/dennis/.bashrc'
 
 if [ `expr index "${1:-0}i" =` == 0 ]; then
 	echo "Usage: mkalias ALIAS=EXPRESSION

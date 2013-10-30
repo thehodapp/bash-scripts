@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Author: Dennis Hodapp
+# Filename: irc-start
+# Requires: irssi
+#
+# Tests if irssi is running and starts it if it isn't.
+# This command will break if you rename it to
+# something containing "irssi".
+#
+# Note: I use this with a shortcut key to start and play cmus
+
+TERMINAL=${TERMINAL:-"gnome-terminal"}
+SHELL=${SHELL:-"/usr/bin/bash"}
+
+if ! ps aux | grep -w "irssi$" | grep -v grep > /dev/null ; then
+  $TERMINAL -x $SHELL -c irssi & > /dev/null
+fi
