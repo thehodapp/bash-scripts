@@ -3,6 +3,9 @@
 # -f flac at level 8
 # -o 320kb/s ogg (level 9)
 # -m VBR mp3 at highest quality (level 0)
+# Finally, opens picard program so that you can add artist, title, etc. tags
+#
+# Requires: cd-paranoia, picard
 
 USAGE="ripcd - rips a cd and encodes it in either FLAC, OGG, or MP3 at high qualities.\n"
 USAGE=$USAGE"Usage: `basename $0` [-f|-o|-m]"
