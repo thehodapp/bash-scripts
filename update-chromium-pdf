@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Author: Dennis Hodapp
+#
+# Add (or update) the libpdf.so for Chromium so that
+# pdf files can be viewed in the browser
+
+fail() {
+  echo "update-chromium-pdf failed" >&2
+  exit 1
+}
+
+mkdir -p /tmp/update-chromium-pdf || fail
+cd /tmp/update-chromium-pdf || fail
+curl -O https://dl-ssl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || fail
+ar vx google-chrome-stable_current_amd64.deb || fail
+tar -xJf data.tar.lzma || fail
+$(sudo cp opt/google/chrome/libpdf.so /usr/lib/chromium-browser/) || fail
+
+echo "Updating Chromium pdf viewer library was successful."
