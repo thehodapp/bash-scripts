@@ -6,6 +6,7 @@
 # pdf files can be viewed in the browser
 
 fail() {
+  rm -r /tmp/update-chromium-pdf
   echo "update-chromium-pdf failed" >&2
   exit 1
 }
@@ -17,4 +18,5 @@ ar vx google-chrome-stable_current_amd64.deb || fail
 tar -xJf data.tar.lzma || fail
 $(sudo cp opt/google/chrome/libpdf.so /usr/lib/chromium-browser/) || fail
 
+rm -r /tmp/update-chromium-pdf
 echo "Updating Chromium pdf viewer library was successful."
